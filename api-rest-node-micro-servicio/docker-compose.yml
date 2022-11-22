@@ -1,11 +1,38 @@
 version: "3.7"
 services:
-  proyectos-microservicio:
-    container_name: "proyectos-microservicio"
-    image: carlosappdocker/proyectos-microservicio
+  proyectos-microservicio01:
+    container_name: "proyectos-microservicio01"
+    image: proyectos-microservicio:v1
+    build:
+      context: .
     ports:
-      - "4000:4000"
+      - "4000"
     networks:
       - proyectos
+
+  proyectos-microservicio02:
+    container_name: "proyectos-microservicio02"
+    image: carlosappdocker/proyectos-microservicio
+    build:
+      context: .
+    ports:
+      - "4000"
+    networks:
+      - proyectos
+
+  load-balancer:
+    container_name: "load-balancer"
+    image: load-balancer:v1
+    build:
+      context: ./load-balancer
+    ports:
+      - "8082:80"
+    networks:
+      - proyectos
+    depends_on:
+      - proyectos-microservicio01
+      - proyectos-microservicio02
+    restart: always
+
 networks:
   proyectos:
