@@ -2,9 +2,7 @@ version: "3.7"
 services:
   proyectos-microservicio01:
     container_name: "proyectos-microservicio01"
-    image: proyectos-microservicio:v1
-    build:
-      context: .
+    image: carlosappdocker/proyectos-microservicio
     ports:
       - "4000"
     networks:
@@ -13,8 +11,6 @@ services:
   proyectos-microservicio02:
     container_name: "proyectos-microservicio02"
     image: carlosappdocker/proyectos-microservicio
-    build:
-      context: .
     ports:
       - "4000"
     networks:
